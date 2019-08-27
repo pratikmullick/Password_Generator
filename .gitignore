@@ -27,3 +27,6 @@ Scripts/
 
 # Ignore test.py
 # test.py
+
+# For this directory only.
+brand_name/
