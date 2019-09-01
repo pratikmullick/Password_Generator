@@ -10,6 +10,10 @@ class Generator:
         uppercase: boolean
         numbers: boolean
         symbols: boolean
+    Note: All booleans are true and size is 16 in default state.
+
+    Functions:
+        pass_gen: returns a random password string.
     """
 
     def __init__(self, size=16, lowercase=True, uppercase=True, numbers=True, symbols=True):
@@ -32,22 +36,32 @@ class Generator:
         pass_string = ""
 
         for i in range(self.size):
+            random.seed(int(random.random() * 100000))
             pass_string += random.choice(self.all_chars)
 
-        return pass_string
+        pass_list = list(pass_string)
+        random.shuffle(pass_list)
+
+        return ''.join(pass_list)
 
 class Helper:
     """
-    Creates a helper string, consisting of words to associate each character of the password, to ease in oral
-    memorization of the password. Has 2 arguments:
+    Creates a helper string, consisting of words to correspond each character of the password, to ease in oral
+    memorization. Has 2 arguments:
         password: string
         filenames: array
     Note: Files are not checked, and the program can fail if file is not found.
+    Functions:
+        wordlist: Returns an array of all words from the input of "filenames".
+        mem_string: Returns the memory_string
     """
 
     def __init__(self, password, filenames):
         self.pass_string = password
         self.filelist = filenames
+        self.numbers = {x for x in string.digits}
+        self.symbols = {'!','@','#','$','%','^','&','_','-','+','=','?'}
+
         self.num_dict = json.loads(open("numbers.json",'r').read())
         self.sym_dict = json.loads(open("symbols.json",'r').read())
 
@@ -58,30 +72,48 @@ class Helper:
                 words = h_file.readlines()
 
             for word in words:
-                correct = [x for x in word[:-1]]
-                h_words.append(''.join(correct))
+                # Remove newlines
+                no_newline = [x for x in word[:-1]]
+                h_words.append(''.join(no_newline))
 
         return h_words
 
-    def helper_string(self):
+    def mem_string(self):
         delta = []
-        h_string = ""
+        memstring = ""
 
-        for i in self.pass_string:
+        for char in self.pass_string:
             subset = []
-            for word in self.helper_words:
-                if word[0].lower() == i.lower():
-                    subset.append(word)
-            delta.append(subset)
+            # Add words with same starting character to a list
+            for word in self.wordlist():
+                if word[0].lower() == char.lower():
+                    if char.islower():
+                        subset.append(word.lower())
+                    elif char.isupper():
+                        subset.append(word.upper())
+
+            # Add them to list delta
+            if subset:
+                delta.append(subset)
+
+            if char in self.numbers:
+                delta.append([self.num_dict[char]])
+            if char in self.symbols:
+                delta.append([self.sym_dict[char]])
 
         for subset in delta:
-            h_string += (random.choice(subset) + " ")
+            if len(subset) > 1:
+                memstring += (random.choice(subset) + " ")
+            else:
+                memstring += (subset[0] + " ")
 
-        return h_string
-
+        return memstring
 
 # Debug
 if __name__ == "__main__":
-    gen = Generator().pass_gen()
+    gen = Generator(32, True, True, True, True).pass_gen()
     file_list = ["names.txt","countries.txt"]
-    helper = Helper(gen, file_list)
+    helper = Helper(gen, file_list).mem_string()
+
+    print(gen)
+    print(helper)
