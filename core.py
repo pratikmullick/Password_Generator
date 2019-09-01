@@ -1,22 +1,34 @@
 import random
 import string
+import json
 
 class Generator:
+    """
+    Generates a random password string. Has 5 arguments: 
+        size: int
+        lowercase: boolean
+        uppercase: boolean
+        numbers: boolean
+        symbols: boolean
+    """
 
-    def __init__(self, size=16, l_flag=True, n_flag=True, p_flag=True):
+    def __init__(self, size=16, lowercase=True, uppercase=True, numbers=True, symbols=True):
         self.all_chars = []
         self.size = size
 
-        if l_flag:
-            self.all_chars += {x for x in string.ascii_letters}
-        
-        if n_flag:
+        if lowercase:
+            self.all_chars += {x for x in string.ascii_letters.lower()}
+
+        if uppercase:
+            self.all_chars += {x for x in string.ascii_letters.upper()}
+
+        if numbers:
             self.all_chars += {x for x in string.digits}
 
-        if p_flag:
-            self.all_chars += {'!','@','#','$','%','^','&','_','-','+','=','<','>',':','?'}
+        if symbols:
+            self.all_chars += {'!','@','#','$','%','^','&','_','-','+','=','?'}
 
-    def passgen(self):
+    def pass_gen(self):
         pass_string = ""
 
         for i in range(self.size):
@@ -25,11 +37,19 @@ class Generator:
         return pass_string
 
 class Helper:
+    """
+    Creates a helper string, consisting of words to associate each character of the password, to ease in oral
+    memorization of the password. Has 2 arguments:
+        password: string
+        filenames: array
+    Note: Files are not checked, and the program can fail if file is not found.
+    """
 
-    def __init__(self, pass_string, filenames):
-        self.pass_string = pass_string
+    def __init__(self, password, filenames):
+        self.pass_string = password
         self.filelist = filenames
-        self.helper_words = self.wordlist()
+        self.num_dict = json.loads(open("numbers.json",'r').read())
+        self.sym_dict = json.loads(open("symbols.json",'r').read())
 
     def wordlist(self):
         h_words = []
@@ -62,7 +82,6 @@ class Helper:
 
 # Debug
 if __name__ == "__main__":
-    gen = Generator(16,True, False, False).passgen()
-    helper = Helper(gen, ["names.txt","countries.txt"])
-
-    print(helper.helper_string())
+    gen = Generator().pass_gen()
+    file_list = ["names.txt","countries.txt"]
+    helper = Helper(gen, file_list)

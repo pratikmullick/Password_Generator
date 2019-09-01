@@ -1,0 +1,14 @@
+{
+    "!":"Exclamation",
+    "@":"At-the-rate-of",
+    "#":"Hash",
+    "$":"Dollar",
+    "%":"Percent",
+    "^":"Caret",
+    "&":"Ampersand",
+    "_":"Underscore",
+    "-":"Minus",
+    "+":"Plus",
+    "=":"Equals",
+    "?":"Question"
+}
