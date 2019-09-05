@@ -31,7 +31,7 @@ def CommandLine():
     print(password)
     
     if args.verbose:
-        memo = Helper(password, ["names.txt","countries.txt"]).mem_string()
+        memo = Helper(password, ["assets/names.txt","assets/countries.txt"]).mem_string()
         print(memo)
 
 if __name__ == "__main__":

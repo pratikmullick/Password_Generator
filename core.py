@@ -62,8 +62,8 @@ class Helper:
         self.numbers = {x for x in string.digits}
         self.symbols = {'!','@','#','$','%','^','&','_','-','+','=','?'}
 
-        self.num_dict = json.loads(open("numbers.json",'r').read())
-        self.sym_dict = json.loads(open("symbols.json",'r').read())
+        self.num_dict = json.loads(open("assets/numbers.json",'r').read())
+        self.sym_dict = json.loads(open("assets/symbols.json",'r').read())
 
     def wordlist(self):
         h_words = []
