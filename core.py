@@ -101,6 +101,7 @@ class Helper:
             if char in self.symbols:
                 delta.append([self.sym_dict[char]])
 
+        # Adding a random word from subset to memstring
         for subset in delta:
             if len(subset) > 1:
                 memstring += (random.choice(subset) + " ")
@@ -109,11 +110,3 @@ class Helper:
 
         return memstring
 
-# Debug
-if __name__ == "__main__":
-    gen = Generator(32, True, True, True, True).pass_gen()
-    file_list = ["names.txt","countries.txt"]
-    helper = Helper(gen, file_list).mem_string()
-
-    print(gen)
-    print(helper)
