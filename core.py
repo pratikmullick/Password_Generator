@@ -1,6 +1,7 @@
 import random
 import string
 import json
+import os
 
 class Generator:
     """
@@ -61,9 +62,10 @@ class Helper:
         self.filelist = filenames
         self.numbers = {x for x in string.digits}
         self.symbols = {'!','@','#','$','%','^','&','_','-','+','=','?'}
+        cwd = os.getcwd() + "/"
 
-        self.num_dict = json.loads(open("assets/numbers.json",'r').read())
-        self.sym_dict = json.loads(open("assets/symbols.json",'r').read())
+        self.num_dict = json.loads(open(cwd + "assets/numbers.json",'r').read())
+        self.sym_dict = json.loads(open(cwd + "assets/symbols.json",'r').read())
 
     def wordlist(self):
         h_words = []
