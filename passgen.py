@@ -5,7 +5,7 @@ from core import *
 
 def CommandLine():
 
-    cwd = "~/Python/Password_Generator/"
+    cwd = os.path.expanduser('~') + "/Python/Password_Generator/"
     
     description = "Passgen: A Random Password Generator"
 
@@ -32,11 +32,10 @@ def CommandLine():
 
     password = gen.pass_gen()
     print(password)
-    
+
     if args.verbose:
         memo = Helper(password, [cwd + "assets/names.txt",cwd + "assets/countries.txt"]).mem_string()
         print(memo)
 
 if __name__ == "__main__":
     CommandLine()
-
