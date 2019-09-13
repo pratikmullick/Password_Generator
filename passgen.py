@@ -5,7 +5,7 @@ from core import *
 
 def CommandLine():
 
-    cwd = os.getcwd() + "/"
+    cwd = "~/Python/Password_Generator/"
     
     description = "Passgen: A Random Password Generator"
 

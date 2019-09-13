@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
+
 import random
 import string
 import json
 import os
+
+# For debug purposes only
+_path = os.path.expanduser("~") + "/Python/Password_Generator/"    # To be a file
 
 class Generator:
     """
@@ -62,10 +67,11 @@ class Helper:
         self.filelist = filenames
         self.numbers = {x for x in string.digits}
         self.symbols = {'!','@','#','$','%','^','&','_','-','+','=','?'}
-        cwd = os.getcwd() + "/"
+        # Going global for debug
+        
 
-        self.num_dict = json.loads(open(cwd + "assets/numbers.json",'r').read())
-        self.sym_dict = json.loads(open(cwd + "assets/symbols.json",'r').read())
+        self.num_dict = json.loads(open(_path + "assets/numbers.json",'r').read())
+        self.sym_dict = json.loads(open(_path + "assets/symbols.json",'r').read())
 
     def wordlist(self):
         h_words = []
@@ -112,3 +118,9 @@ class Helper:
 
         return memstring
 
+if __name__ == "__main__":
+    password = Generator(16, True, True, True, False).pass_gen()
+    print(password)
+    # Use regex to find all filesnames with .txt in assets directory
+    helper_string = Helper(password, [_path + "assets/names.txt", _path + "assets/countries.txt"])
+    print(helper_string.mem_string())
