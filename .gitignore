@@ -24,3 +24,7 @@ share/
 Include/
 Lib/
 Scripts/
+
+# Ignore Python Build Directories
+dist/
+*.egg-info/
