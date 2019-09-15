@@ -11,7 +11,7 @@ Passgen is written in Python 3. If you are using Linux, your distribution's pack
 ### Installation
 You can install this library by cloning it from github, using the following command:
 
-```bash
+```sh
 $ git clone https://github.com/pratikmullick/Password_Generator.git
 ```
 
@@ -52,10 +52,19 @@ Passgen has a few command optional command-line arguments.
 
   Create a set of words to assist in oral memorization of the random password string.
 
+## Common Usage Patterns
+
+Use this command to create a random password and save it to a file.
+```sh
+$ python passgen.py --size <integer> --verbose > <filename>
+```
+
 # About
 
 ## Author
-Pratik Mullick - *Initial Testing Code*
+Pratik Mullick
+
+pratik.mullick<at>gmail.com
 
 ## License
 Passgen is licensed under GPLv3. For more details, please read [LICENSE document](LICENSE).
